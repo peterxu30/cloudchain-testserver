@@ -14,7 +14,7 @@ type Route struct {
 
 type Routes []Route
 
-// Add all routes from all controllers here
+// InitializeRoutes initializes all routes for the given TestServer.
 func InitializeRoutes(s *TestServer) {
 	var routes = Routes{
 		Route{
@@ -28,6 +28,12 @@ func InitializeRoutes(s *TestServer) {
 			"POST",
 			"/addblockstest",
 			s.AddFiftyBlocksTest(),
+		},
+		Route{
+			"AddAndReadBlocksTest",
+			"POST",
+			"/addandreadblockstest",
+			s.SimultaneouslyAddAndReadFiftyBlocksTest(),
 		},
 		Route{
 			"Reset",

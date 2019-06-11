@@ -12,24 +12,10 @@ const (
 	genesisBlockData = "genesis"
 )
 
-// type TestCloudChainManager struct {
-// 	cc *cloudchain.CloudChain
-// }
-
-// func NewTestCloudChainManager(ctx context.Context) (*TestCloudChainManager, error) {
-// 	cc, err := cloudchain.NewCloudChain(ctx, testProjectId, 10, []byte(genesisBlockData))
-// 	if err != nil {
-// 		return nil, err
-// 	}
-
-// 	return &TestCloudChainManager{
-// 		cc: cc,
-// 	}, nil
-// }
-
 var _testCloudChain *cloudchain.CloudChain
 var _testCloudChainLock sync.RWMutex
 
+// GetTestCloudChain returns the CloudChain singleton
 func GetTestCloudChain(ctx context.Context) *cloudchain.CloudChain {
 	_testCloudChainLock.RLock()
 	defer _testCloudChainLock.RUnlock()
@@ -45,6 +31,7 @@ func GetTestCloudChain(ctx context.Context) *cloudchain.CloudChain {
 	return _testCloudChain
 }
 
+// DeleteTestCloudChain deletes the CloudChain singleton. Calling GetTestCloudChain will initialize a new CloudChain.
 func DeleteTestCloudChain(ctx context.Context) error {
 	_testCloudChainLock.Lock()
 	defer _testCloudChainLock.Unlock()
