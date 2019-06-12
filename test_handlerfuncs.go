@@ -39,7 +39,7 @@ func (s *TestServer) AddFiftyBlocksTest() http.HandlerFunc {
 			msg := strconv.Itoa(i)
 			go func(ctx context.Context, msg string) {
 				defer wg.Done()
-				recieved, errorChannel := cc.AddBlockExperimental(ctx, []byte(msg))
+				recieved, errorChannel := cc.AddBlock(ctx, []byte(msg))
 
 				select {
 				case block := <-recieved:
@@ -116,7 +116,7 @@ func (s *TestServer) SimultaneouslyAddAndReadFiftyBlocksTest() http.HandlerFunc 
 				msg := strconv.Itoa(i)
 				go func(ctx context.Context, cc *cloudchain.CloudChain, msg string) {
 					defer wg.Done()
-					recieved, errorChannel := cc.AddBlockExperimental(ctx, []byte(msg))
+					recieved, errorChannel := cc.AddBlock(ctx, []byte(msg))
 
 					select {
 					case block := <-recieved:
