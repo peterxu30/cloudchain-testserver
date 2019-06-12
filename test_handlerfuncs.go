@@ -130,7 +130,7 @@ func (s *TestServer) SimultaneouslyAddAndReadFiftyBlocksTest() http.HandlerFunc 
 				go func(ctx context.Context, cc *cloudchain.CloudChain) {
 					defer wg.Done()
 
-					sleepTime := rand.Intn(10)
+					sleepTime := time.Duration(rand.Intn(15))
 					time.Sleep(sleepTime * time.Second)
 
 					iter, err := cc.Iterator()
